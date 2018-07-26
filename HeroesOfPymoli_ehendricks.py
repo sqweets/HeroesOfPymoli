@@ -1,18 +1,4 @@
 
-# coding: utf-8
-
-# ### Heroes Of Pymoli Data Analysis
-# * Of the 1163 active players, the vast majority are male (84%). There also exists, a smaller, but notable proportion of female players (14%).
-# 
-# * Our peak age demographic falls between 20-24 (44.8%) with secondary groups falling between 15-19 (18.60%) and 25-29 (13.4%).  
-# -----
-
-# ### Note
-# * Instructions have been included for each segment. You do not have to follow them exactly, but they are included to help you think through the steps.
-
-# In[1]:
-
-
 # Dependencies and Setup
 import pandas as pd
 import numpy as np
@@ -23,19 +9,11 @@ file_to_load = "Resources/purchase_data.csv"
 # Read purchasing file and store into pandas data frame
 purchases_df = pd.read_csv(file_to_load)
 
-
-# In[2]:
-
-
 purchases_df.head(10)
 
+## Player Count
 
-# ## Player Count
-
-# * Display the total number of players
-# 
-
-# In[3]:
+* Display the total number of players
 
 
 # The data is for purchases so it will only have players that have made purchases
@@ -44,22 +22,18 @@ purchases_df.head(10)
 total_players = len(purchases_df.SN.unique())
 print(f'Total # of players that have made purchases: {total_players}')
 
+## Purchasing Analysis (Total)
 
-# ## Purchasing Analysis (Total)
+# * Run basic calculations to obtain number of unique items, average price, etc.
 
-# # * Run basic calculations to obtain number of unique items, average price, etc.
-# 
-# 
-# * Create a summary data frame to hold the results
-# 
-# 
-# * Optional: give the displayed data cleaner formatting
-# 
-# 
-# * Display the summary data frame
-# 
 
-# In[4]:
+* Create a summary data frame to hold the results
+
+
+* Optional: give the displayed data cleaner formatting
+
+
+* Display the summary data frame
 
 
 # Create dataFrame of unique products
@@ -80,21 +54,17 @@ summary_df["Total Revenue"] = summary_df["Total Revenue"].map("${:.2f}".format)
 
 summary_df
 
+## Gender Demographics
 
-# ## Gender Demographics
+* Percentage and Count of Male Players
 
-# * Percentage and Count of Male Players
-# 
-# 
-# * Percentage and Count of Female Players
-# 
-# 
-# * Percentage and Count of Other / Non-Disclosed
-# 
-# 
-# 
 
-# In[5]:
+* Percentage and Count of Female Players
+
+
+* Percentage and Count of Other / Non-Disclosed
+
+
 
 
 # Groupby gender and count unique players
@@ -119,24 +89,21 @@ gender_df.columns = ["Total Count", "Percentage"]
 gender_df
 
 
-# 
-# ## Purchasing Analysis (Gender)
 
-# * Run basic calculations to obtain purchase count, avg. purchase price, avg. purchase total per person etc. by gender
-# 
-# 
-# 
-# 
-# * Create a summary data frame to hold the results
-# 
-# 
-# * Optional: give the displayed data cleaner formatting
-# 
-# 
-# * Display the summary data frame
+## Purchasing Analysis (Gender)
 
-# In[6]:
+* Run basic calculations to obtain purchase count, avg. purchase price, avg. purchase total per person etc. by gender
 
+
+
+
+* Create a summary data frame to hold the results
+
+
+* Optional: give the displayed data cleaner formatting
+
+
+* Display the summary data frame
 
 # see what each player has bought
 # By Gender (totals)
@@ -169,27 +136,24 @@ gender_totals_df = gender_totals_df[['Unique Players','Total Items', 'Total Purc
 gender_totals_df
 
 
-# ## Age Demographics
+## Age Demographics
 
-# * Establish bins for ages
-# 
-# 
-# * Categorize the existing players using the age bins. Hint: use pd.cut()
-# 
-# 
-# * Calculate the numbers and percentages by age group
-# 
-# 
-# * Create a summary data frame to hold the results
-# 
-# 
-# * Optional: round the percentage column to two decimal points
-# 
-# 
-# * Display Age Demographics Table
-# 
+* Establish bins for ages
 
-# In[7]:
+
+* Categorize the existing players using the age bins. Hint: use pd.cut()
+
+
+* Calculate the numbers and percentages by age group
+
+
+* Create a summary data frame to hold the results
+
+
+* Optional: round the percentage column to two decimal points
+
+
+* Display Age Demographics Table
 
 
 # Establish bins for ages
@@ -219,24 +183,21 @@ summary_ages_df = summary_ages_df[["Unique Players", "Percentage"]]
 summary_ages_df
 
 
-# ## Purchasing Analysis (Age)
+## Purchasing Analysis (Age)
 
-# * Bin the purchase_data data frame by age
-# 
-# 
-# * Run basic calculations to obtain purchase count, avg. purchase price, avg. purchase total per person etc. in the table below
-# 
-# 
-# * Create a summary data frame to hold the results
-# 
-# 
-# * Optional: give the displayed data cleaner formatting
-# 
-# 
-# * Display the summary data frame
+* Bin the purchase_data data frame by age
 
-# In[8]:
 
+* Run basic calculations to obtain purchase count, avg. purchase price, avg. purchase total per person etc. in the table below
+
+
+* Create a summary data frame to hold the results
+
+
+* Optional: give the displayed data cleaner formatting
+
+
+* Display the summary data frame
 
 # Can use the previously determined DataFrame
 groupedby_age_range = purchases_df.groupby("Age Ranges")
@@ -278,25 +239,23 @@ summary_purchases_by_age_df = summary_purchases_by_age_df[['Unique Players','Pur
 summary_purchases_by_age_df
 
 
-# ## Top Spenders
 
-# * Run basic calculations to obtain the results in the table below
-# 
-# 
-# * Create a summary data frame to hold the results
-# 
-# 
-# * Sort the total purchase value column in descending order
-# 
-# 
-# * Optional: give the displayed data cleaner formatting
-# 
-# 
-# * Display a preview of the summary data frame
-# 
-# 
+## Top Spenders
 
-# In[9]:
+* Run basic calculations to obtain the results in the table below
+
+
+* Create a summary data frame to hold the results
+
+
+* Sort the total purchase value column in descending order
+
+
+* Optional: give the displayed data cleaner formatting
+
+
+* Display a preview of the summary data frame
+
 
 
 groupedby_player = purchases_df.groupby(['SN'])
@@ -315,29 +274,25 @@ player_list_df["Total Purchases"] = player_list_df["Total Purchases"].map("${:.2
 
 player_list_df.head(5)
 
+## Most Popular Items
 
-# ## Most Popular Items
+* Retrieve the Item ID, Item Name, and Item Price columns
 
-# * Retrieve the Item ID, Item Name, and Item Price columns
-# 
-# 
-# * Group by Item ID and Item Name. Perform calculations to obtain purchase count, item price, and total purchase value
-# 
-# 
-# * Create a summary data frame to hold the results
-# 
-# 
-# * Sort the purchase count column in descending order
-# 
-# 
-# * Optional: give the displayed data cleaner formatting
-# 
-# 
-# * Display a preview of the summary data frame
-# 
-# 
 
-# In[10]:
+* Group by Item ID and Item Name. Perform calculations to obtain purchase count, item price, and total purchase value
+
+
+* Create a summary data frame to hold the results
+
+
+* Sort the purchase count column in descending order
+
+
+* Optional: give the displayed data cleaner formatting
+
+
+* Display a preview of the summary data frame
+
 
 
 popular_item_df = purchases_df.loc[:, 'Item ID':'Price'].copy()
@@ -371,19 +326,16 @@ popular_df["Total Purchase Value"] = popular_df["Total Purchase Value"].map("${:
 popular_df.head()
 
 
-# ## Most Profitable Items
+## Most Profitable Items
 
-# * Sort the above table by total purchase value in descending order
-# 
-# 
-# * Optional: give the displayed data cleaner formatting
-# 
-# 
-# * Display a preview of the data frame
-# 
-# 
+* Sort the above table by total purchase value in descending order
 
-# In[11]:
+
+* Optional: give the displayed data cleaner formatting
+
+
+* Display a preview of the data frame
+
 
 
 # Sort by Total Purchase Value and format
@@ -392,10 +344,3 @@ profit_df["Price"] = profit_df["Price"].map("${:.2f}".format)
 profit_df["Total Purchase Value"] = profit_df["Total Purchase Value"].map("${:.2f}".format)
 
 profit_df.head()
-
-
-# In[ ]:
-
-
-get_ipython().system('jupyter nbconvert --to script heroes_of_ymoli.ipynb')
-
